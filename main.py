@@ -1,6 +1,7 @@
 from displaylib import *
 from player import Player
 from text_collider import TextCollider
+from enemy import Enemy
 
 # Made in pyhton using my own ASCII graphics library DisplayLib
 
@@ -19,11 +20,14 @@ class Rectangle(TextCollider, Sprite):
 class App(Engine):
     def _on_start(self) -> None:
         self.camera = Camera(mode=Camera.CENTERED | Camera.INCLUDE_SIZE).as_current()
-        self.player = Player()
-        self.rect1 = Rectangle(width=20, height=3, x=0, y=self.screen.height-3, color=color.MEDIUM_VIOLET_RED)
-        self.rect2 = Rectangle(width=30, height=3, x=30, y=self.screen.height-3, color=color.SALMON)
-        self.rect3 = Rectangle(width=30, height=3, x=40, y=self.screen.height-9, color=color.CRIMSON)
-        self.rect4 = Rectangle(width=20, height=10, x=-25, y=self.screen.height-3-10, color=color.SEA_GREEN)
+        self.player = Player(x=2, y=-20)
+        self.rect1 = Rectangle(width=20, height=3, x=0, y=0, color=color.MEDIUM_VIOLET_RED)
+        self.rect2 = Rectangle(width=30, height=3, x=30, y=0, color=color.SALMON)
+        self.rect3 = Rectangle(width=30, height=3, x=40, y=-6, color=color.CRIMSON)
+        self.rect4 = Rectangle(width=20, height=10, x=-25, y=-10, color=color.SEA_GREEN)
+        self.enemy1 = Enemy(x=32, y=-3, color=color.RED)
+        self.enemy2 = Enemy(x=46, y=-3, color=color.RED)
+        self.enemy3 = Enemy(x=52, y=-9, color=color.RED)
         # self.audio_stream_player = AudioStreamPlayer("./audio/song.wav")
         # self.audio_stream_player.play()
     

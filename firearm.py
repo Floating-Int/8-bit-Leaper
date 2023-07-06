@@ -1,19 +1,29 @@
 from displaylib import *
 import keyboard
-# from text_collider import TextCollider
+from text_collider import TextCollider
+from enemy import Enemy
 
 
 RIGHT = 1
 LEFT = -1
 
 
-class Projectile(Sprite): # TextCollider
+class Projectile(Sprite, TextCollider):
     texture = ["*"]
     direction: int = RIGHT
+    _elapsed_time = 0
+    _lifetime = 2.0 # seconds
 
-    def _update(self, _delta: float) -> None:
+    def _update(self, delta: float) -> None:
         # self.move_and_slide(Vec2(4 * self.direction, 0))
         self.position.x += 4 * self.direction
+        if (collider := self.get_collider()) is not None:
+            self.queue_free()
+            if isinstance(collider, Enemy):
+                collider.health -= 1
+        self._elapsed_time += delta
+        if self._elapsed_time >= self._lifetime:
+            self.queue_free()
 
 
 class Firearm(Sprite):
